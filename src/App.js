@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import createMaker from './eth/maker';
 import './App.css';
+import Maker from '@makerdao/dai';
 
 function App() {
 
+  // Set callback to state
   const [maker, setMaker] = useState({})
+  // Set eth address
   const [address, setAddress] = useState('')
   const [value, setValue] = useState('')
+  // Set loading and loaded states
   const [loaded, setLoaded] = useState(false)
+
+  // Access web3 browser provider to create Maker
+  const createMaker = async () => {
+    return await Maker.create('browser', {});
+  }
 
   // Sign tx to permit dapp interaction with MakerDAO dApp
   const createMakerInstance = async () => {
@@ -24,8 +32,15 @@ function App() {
       setValue(tokenValue / 1000000000000000000)
     })
 
-    // TODO: DAI balance? Derivative coins balance?
     // TODO: Sample DAI Interactions/ Savings rate
+    /*
+    const cdp = await makerInstance.openCdp();
+    const info = await cdp.getInfo();
+    console.log(info);
+    */
+    // TODO: Try this examples: https://github.com/makerdao/dai.js/blob/dev/packages/dai/README.md#commands
+    // TODO: https://docs.makerdao.com/building-with-maker/daijs/getting-started
+
  
     // set loading status for async 
     setLoaded(true)
